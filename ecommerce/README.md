@@ -27,6 +27,7 @@ Dalla pagina di dettaglio è possibile:
 - visualizzare la descrizione completa del prodotto
 - aggiungere il prodotto al carrello
 - proseguire direttamente al carrello oppure utilizzare l’icona nella navbar
+- accedere al carrello 
 
 ---
 
