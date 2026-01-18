@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} Carrello {% endblock %}
+
+{% block content %}
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder"> Carrello </h1>
+            <p class="lead fw-normal text-white-50 mb-0"> Visita il Carrello </p>
+        </div>
+    </div>
+</header>
+<br> <br> <br> <br> <br> 
+
+<div class="container"> 
+    {% if items %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Prodotti</th>
+                    <th>Prezzo</th>
+                    <th>Quantità</th>
+                    <th>Subtotale</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item_data in items %}
+                <tr>
+                    <td>{{ item_data.item.name }}</td>
+                    <td>€{{ item_data.item.price }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'decrease_quantity' item_data.product_id %}"
+                        class="btn btn-sm btn-outline-secondary">−</a>
+                        <span class="mx-2">{{ item_data.item.quantity }}</span>
+                        <a href="{% url 'increase_quantity' item_data.product_id %}"
+                        class="btn btn-sm btn-outline-secondary">+</a> 
+                    </td>
+                    <td>€{{ item_data.subtotal|floatformat:2 }}</td>
+
+                    <td>
+                        <a href="{% url 'remove_from_cart' item_data.product_id %}" class="btn btn-sm btn-danger">Rimuovi </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Total: € {{ total|floatformat:2 }}</h3>
+        <br>
+        <div class="text-center">
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Home</a>
+            <a href="{% url 'create_order' %}" class="btn btn-secondary ms-3">Prosegui</a>
+        </div>
+
+    {% else %}
+        <div class="text-center">
+            <p>Il carrello è vuoto</p>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Home</a>
+        </div>
+    {% endif %}
+</div>
+
+<br> <br> <br>
+
+{% endblock %}

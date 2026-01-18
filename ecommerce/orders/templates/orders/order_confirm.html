@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Ordine Confermato {% endblock %}
+
+{% block content %}
+
+<div class="container"> 
+    <div class="row"> 
+        <center> <br> <br> 
+            <div class="col-8"> 
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> Ordine Confermato!</h5>
+                        <br>
+                        <p class="card-text">
+                            Grazie per il tuo ordine.<br> <br> 
+                            Riceverai una conferma via email a breve.
+                        </p>
+                        <br> <br>
+                    </div>
+                </div>
+            </div>
+            <br> <br>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Torna allo Shop</a>
+        </center>
+    </div>
+</div> 
+<br> <br> <br>
+
+{% endblock %}

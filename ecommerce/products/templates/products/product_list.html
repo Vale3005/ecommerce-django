@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder"> E-Commerce </h1>
+            <p class="lead fw-normal text-white-50 mb-0"> Shopping Time! </p>
+        </div>
+    </div>
+</header>
+
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+            {% for product in products %}
+            <div class="col mb-5">
+                <div class="card h-100 d-flex flex-column">
+                    <!-- Immagine prodotto-->
+                     {% if product.image %}
+                     <a href="{% url 'product_detail' product.id %}">
+                        <img class="card-img-top"
+                        src="{{ product.image.url }}"
+                        alt="{{ product.name }}" />
+                    </a>
+                    {% endif %}
+
+                    <!-- Dettagli prodotto-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder"> {{ product.name }}</h5>
+                            {{ product.price }}€ <br>                            
+                        </div>
+                    
+                    <div class="mt-auto text-center"> 
+                        {% if product.available %} <br> <br>
+                    <span class="text-success">
+                    <i class="bi bi-check-circle-fill"></i> Disponibile
+                    </span>
+                    {% else %}
+                    <span class="text-danger">
+                    <i class="bi bi-x-circle-fill"></i> Non disponibile
+                    </span>
+                    {% endif %}
+                    </div>
+
+                    </div>
+
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product_detail' product.id %}"> Informazioni Prodotto </a></div>
+                    </div>  
+                </div>                
+            </div>
+
+            {% endfor %}
+            
+        
+    </div>
+</section>
+{% endblock %}

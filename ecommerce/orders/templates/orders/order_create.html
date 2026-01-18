@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block content %}
+
+<div class="container"> 
+    <div class="row"> 
+        <center> <br> <br> 
+            <div class="col-8"> 
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Completa il tuo ordine</h5>
+                        <br>
+                        
+                        <form method="POST">
+                            {% csrf_token %}
+                        <div class="mb-3">
+                                <label class="form-label">Nome</label>
+                                <div class="d-flex justify-content-center">
+                                        {{ form.name }}
+                                </div>
+                        </div>
+
+                        <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <div class="d-flex justify-content-center">
+                                        {{ form.email }}
+                                </div>
+                        </div>
+
+                        <div class="mb-3">
+                                <label class="form-label">Indirizzo</label>
+                                <div class="d-flex justify-content-center">
+                                        {{ form.address }}
+                                 </div>
+                        </div>
+
+                        <div class="mb-3">
+                                <label class="form-label">Telefono</label>
+                                <div class="d-flex justify-content-center">
+                                        {{ form.phone }}
+                                </div>
+                        </div>
+
+                        <br>
+                        <div class="text-center">
+                                <a href="{% url 'cart_detail' %}" class="btn btn-secondary ">Torna al Carrello</a>
+                                 <button type="submit" class="btn btn-success ms-3">Conferma Ordine</button>
+                                 
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </center>
+    </div>
+</div> 
+<br> <br> <br>
+
+{% endblock %}

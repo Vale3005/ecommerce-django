@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+
+        <!-- Product image + info -->
+        <div class="col-md-8">
+            <div class="card">
+                <img src="{{ product.image.url }}"
+                     alt="{{ product.name }}"
+                     class="card-img-top img-fluid"
+                     style="max-height: 300px; object-fit: contain;">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        <strong>{{ product.price }} €</strong><br><br>
+                        {{ product.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="col-md-4 d-flex flex-column justify-content-start">
+            <a href="{% url 'product_list' %}" class="btn btn-secondary mb-3 w-100">
+                Home
+            </a> <br> 
+
+            {% if user.is_authenticated and product.available %}
+            <button type="button"
+                    value="{{ product.id }}"
+                    class="btn btn-secondary w-100"
+                    id="add-cart">
+                Aggiungi al Carrello
+            </button> <br> <br> 
+
+            {% elif not product.available %}
+            <div class="alert alert-secondary text-center"> Prodotto non disponibile
+            </div>
+            
+            <a href="{% url 'cart_detail' %}" class="btn btn-secondary mb-3 w-100">
+                Vai al Carrello
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).on('click', '#add-cart', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'add_to_cart' product.id %}",
+        data: {
+            product_id: $(this).val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(json) {
+
+            $('.alert').remove();
+            const alertHtml = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    ${json.message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            $('nav').after(alertHtml);
+
+            $('#cart_quantity').text(json.total_items);
+
+        },
+        error: function() {
+            alert("Errore durante l'aggiunta al carrello");
+        }
+    });
+});
+</script>
+
+{% endblock %}
