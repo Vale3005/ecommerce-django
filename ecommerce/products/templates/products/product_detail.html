@@ -28,27 +28,31 @@
 
         <!-- Actions -->
         <div class="col-md-4 d-flex flex-column justify-content-start">
-            <a href="{% url 'product_list' %}" class="btn btn-secondary mb-3 w-100">
-                Home
-            </a> <br> 
+    <a href="{% url 'product_list' %}" class="btn btn-secondary mb-3 w-100">
+        Home
+    </a> <br> 
 
-            {% if user.is_authenticated and product.available %}
+    {% if user.is_authenticated %}
+        {% if product.available %}
             <button type="button"
                     value="{{ product.id }}"
                     class="btn btn-secondary w-100"
                     id="add-cart">
                 Aggiungi al Carrello
             </button> <br> <br> 
+        {% else %}
+            <div class="alert alert-secondary text-center">
+                Prodotto non disponibile
+            </div> <br> <br>
+        {% endif %}
 
-            {% elif not product.available %}
-            <div class="alert alert-secondary text-center"> Prodotto non disponibile
-            </div>
-            
-            <a href="{% url 'cart_detail' %}" class="btn btn-secondary mb-3 w-100">
-                Vai al Carrello
-            </a>
-            {% endif %}
-        </div>
+        <!-- Vai al carrello SEMPRE -->
+        <a href="{% url 'cart_detail' %}" class="btn btn-secondary mb-3 w-100">
+            Vai al Carrello
+        </a>
+    {% endif %}
+</div>
+
 
     </div>
 </div>
