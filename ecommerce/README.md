@@ -7,7 +7,7 @@ L’applicazione si apre con una homepage contenente la lista dei prodotti dispo
 - sistema di Login e Registrazione per utenti non autenticati
 - sistema di Logout per utenti autenticati
 - barra di ricerca dei prodotti
-- collegamento alla Home (tramite “Home” o “E-commerce”)
+- collegamento alla Home (tramite “Lista Prodotti” o “E-commerce”)
 
 La visualizzazione e l’utilizzo del carrello sono consentiti solo dopo aver effettuato il login. Il numero di elementi presenti nel carrello varia dinamicamente in base agli articoli aggiunti.
 
